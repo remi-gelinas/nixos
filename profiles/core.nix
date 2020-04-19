@@ -33,6 +33,7 @@
       stdmanpages
       utillinux
       bat
+      exa
     ];
   };
 
