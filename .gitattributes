@@ -1,1 +1,1 @@
-secrets/* filter=git-crypt diff=git-crypt
+pkgs/data/fonts/pragmata-pro/data/**/* filter=git-crypt diff=git-crypt
