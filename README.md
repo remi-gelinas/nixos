@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="assets/logo.svg" width="200px" height="200px" />
+</p>
+
 # Introduction
 A NixOS configuration template using the experimental [flakes][rfc] mechanism.
 Its aim is to provide a generic repository which neatly separates concerns
