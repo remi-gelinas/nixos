@@ -11,10 +11,11 @@ let
     [ host ]
   else
     [ /etc/nixos/hosts/NixOS.nix ];
-in {
+in
+{
   imports = (import ./modules) ++ [
     "${
-      builtins.fetchTarball
+    builtins.fetchTarball
       "https://github.com/rycee/home-manager/archive/master.tar.gz"
     }/nixos"
     /etc/nixos/profiles/core.nix

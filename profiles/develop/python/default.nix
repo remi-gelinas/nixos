@@ -1,6 +1,8 @@
 { pkgs, ... }:
-let inherit (pkgs) python3Packages;
-in {
+let
+  inherit (pkgs) python3Packages;
+in
+{
   environment.systemPackages = let
     packages = pythonPackages:
       with pythonPackages; [
@@ -12,7 +14,6 @@ in {
       ];
 
     python = pkgs.python3.withPackages packages;
-
   in [ python ];
   environment.sessionVariables = {
     PYTHONSTARTUP = let
@@ -39,4 +40,3 @@ in {
     in "${startup}";
   };
 }
-

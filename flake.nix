@@ -17,10 +17,10 @@
         overlays = self.overlays;
         config = { allowUnfree = true; };
       };
-
     in {
       nixosConfigurations =
-        let configs = import ./hosts (inputs // { inherit system pkgs; });
+        let
+          configs = import ./hosts (inputs // { inherit system pkgs; });
         in configs;
 
       overlay = import ./pkgs;
@@ -35,10 +35,12 @@
       };
 
       nixosModules = let
-        prep = map (path: {
-          name = removeSuffix ".nix" (baseNameOf path);
-          value = import path;
-        });
+        prep = map (
+          path: {
+            name = removeSuffix ".nix" (baseNameOf path);
+            value = import path;
+          }
+        );
 
         # modules
         moduleList = import ./modules/list.nix;
@@ -47,7 +49,6 @@
         # profiles
         profilesList = import ./profiles/list.nix;
         profilesAttrs = { profiles = listToAttrs (prep profilesList); };
-
       in modulesAttrs // profilesAttrs;
     };
 }

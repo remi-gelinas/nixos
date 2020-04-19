@@ -34,9 +34,9 @@ let
   blacklist = concatStringsSep ''
 
     0.0.0.0 '' [
-      "# auto-generated: must be first"
+    "# auto-generated: must be first"
 
-      # starts here
-    ];
-
-in { networking.extraHosts = readFile "${hosts}/etc/hosts"; }
+    # starts here
+  ];
+in
+{ networking.extraHosts = readFile "${hosts}/etc/hosts"; }

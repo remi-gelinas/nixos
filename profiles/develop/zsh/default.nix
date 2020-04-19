@@ -3,12 +3,13 @@ let
   inherit (builtins) concatStringsSep;
 
   inherit (lib) fileContents;
-
-in {
+in
+{
   users.defaultUserShell = pkgs.zsh;
 
   environment = {
-    sessionVariables = let fd = "${pkgs.fd}/bin/fd -H";
+    sessionVariables = let
+      fd = "${pkgs.fd}/bin/fd -H";
     in {
       BAT_PAGER = "less";
       SKIM_ALT_C_COMMAND = let
@@ -107,7 +108,8 @@ in {
         man = "${pkgs.man}";
         exa = "${pkgs.exa}";
 
-        installPhase = let basename = "\${file##*/}";
+        installPhase = let
+          basename = "\${file##*/}";
         in ''
           mkdir $out
 
@@ -118,10 +120,11 @@ in {
         '';
       };
 
-      plugins = concatStringsSep "\n" ([
-        "${pkgs.any-nix-shell}/bin/any-nix-shell zsh --info-right | source /dev/stdin"
-      ] ++ source);
-
+      plugins = concatStringsSep "\n" (
+        [
+          "${pkgs.any-nix-shell}/bin/any-nix-shell zsh --info-right | source /dev/stdin"
+        ] ++ source
+      );
     in ''
       ${plugins}
 

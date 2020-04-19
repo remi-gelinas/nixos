@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> {} }:
 let
   configs = "${toString ./.}#nixosConfigurations";
   hostname = pkgs.lib.fileContents /etc/hostname;
@@ -15,12 +15,9 @@ let
       sudo -E nix run -vv ${configs}.$1.${build}.toplevel -c switch-to-configuration $2
     fi
   '';
-in pkgs.mkShell {
+in
+pkgs.mkShell {
   nativeBuildInputs = with pkgs; [ git git-crypt nixFlakes rebuild ];
-
-  shellHook = ''
-    mkdir -p secrets
-  '';
 
   NIX_CONF_DIR = let
     current = pkgs.lib.optionalString (builtins.pathExists /etc/nix/nix.conf)

@@ -1,1 +1,1 @@
-{ ... }: { imports = [ ./stubby.nix ./adblocking.nix ]; }
+{ ... }: { imports = [ ./adblocking.nix ]; }

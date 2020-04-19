@@ -37,7 +37,6 @@ let
         # Everything in `./modules/list.nix`.
         flakeModules =
           attrValues (removeAttrs self.nixosModules [ "profiles" ]);
-
       in flakeModules ++ [ core global local home-manager ];
 
     };
@@ -46,4 +45,5 @@ let
     dir = ./.;
     _import = config;
   };
-in hosts
+in
+hosts

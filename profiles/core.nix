@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
-let inherit (lib) fileContents;
 
-in {
+{
   nix.package = pkgs.nixFlakes;
 
   nix.systemFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
@@ -9,17 +8,14 @@ in {
   imports = [ ../local/locale.nix ];
 
   boot = {
-
     kernelPackages = pkgs.linuxPackages_latest;
 
     tmpOnTmpfs = true;
 
     kernel.sysctl."kernel.sysrq" = 1;
-
   };
 
   environment = {
-
     systemPackages = with pkgs; [
       binutils
       coreutils
@@ -36,71 +32,20 @@ in {
       ripgrep
       stdmanpages
       utillinux
+      bat
     ];
-
-    shellAliases =
-      let ifSudo = string: lib.mkIf config.security.sudo.enable string;
-      in {
-        # quick cd
-        ".." = "cd ..";
-        "..." = "cd ../..";
-        "...." = "cd ../../..";
-        "....." = "cd ../../../..";
-
-        # git
-        g = "git";
-
-        # grep
-        grep = "rg";
-        gi = "grep -i";
-
-        # internet ip
-        myip = "dig +short myip.opendns.com @208.67.222.222 2>&1";
-
-        # nix
-        n = "nix";
-        np = "n profile";
-        ni = "np install";
-        nr = "np remove";
-        ns = "n search";
-        nrb = ifSudo "sudo nixos-rebuild";
-
-        # sudo
-        s = ifSudo "sudo -E ";
-        si = ifSudo "sudo -i";
-        se = ifSudo "sudoedit";
-
-        # top
-        top = "gotop";
-
-        # systemd
-        ctl = "systemctl";
-        stl = ifSudo "s systemctl";
-        utl = "systemctl --user";
-        ut = "systemctl --user start";
-        un = "systemctl --user stop";
-        up = ifSudo "s systemctl start";
-        dn = ifSudo "s systemctl stop";
-        jtl = "journalctl";
-
-      };
-
   };
 
   fonts = {
-    fonts = with pkgs; [ powerline-fonts dejavu_fonts ];
+    fonts = with pkgs; [ pragmata_pro ];
 
     fontconfig.defaultFonts = {
-
-      monospace = [ "DejaVu Sans Mono for Powerline" ];
-
-      sansSerif = [ "DejaVu Sans" ];
-
+      monospace = [ "PragmataPro Mono Liga" ];
+      sansSerif = [ "PragmataPro Liga" ];
     };
   };
 
   nix = {
-
     autoOptimiseStore = true;
 
     gc.automatic = true;
@@ -116,19 +61,21 @@ in {
     extraOptions = ''
       experimental-features = nix-command flakes ca-references
     '';
-
   };
 
   security = {
-
     hideProcessInformation = true;
 
     protectKernelImage = true;
 
+    sudo = {
+      enable = true;
+
+      extraConfig = ''
+        Default       lecture_file = /etc/nixos/local/sudo.lecture
+      '';
+    };
   };
 
-  services.earlyoom.enable = true;
-
   users.mutableUsers = false;
-
 }
