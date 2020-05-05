@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
       A condensed monospaced font optimized for screen, designed by Fabrizio Schiavi to be the ideal font for coding, math and engineering.
     '';
     homepage = "https://www.fsd.it/shop/fonts/pragmatapro/";
-    license = src + "COPYRIGHT+EULA.txt";
+    license = licenses.unfree;
     inherit version;
   };
 }
