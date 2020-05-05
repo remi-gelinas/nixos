@@ -1,12 +1,14 @@
-{ stdenv }:
+{ stdenv, pkgs }:
 
 stdenv.mkDerivation rec {
   pname = "pragmata-pro";
   version = "0.828";
 
-  src = ./data;
+  src = ./data.tar.gz;
 
-  buildCommand = ''
+  dontBuild = true;
+
+  installPhase = ''
     install --target $out/share/fonts/opentype -D $src/*.ttf
   '';
 
