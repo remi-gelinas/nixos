@@ -1,4 +1,6 @@
 [
   ./develop
   ./misc
+  ./gaming
+  ./recording
 ]
